@@ -7,17 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.main_fragment.*
 
 const val TAG = "MainFragment"
 
 class MainFragment : Fragment() {
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private lateinit var viewModel: MainViewModel
     private lateinit var noteListViewAdapter: NoteListViewAdapter
@@ -26,31 +24,27 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-//        recyclerView.apply {
-//            setHasFixedSize(true)
-//            val divider = DividerItemDecoration(context,LinearLayoutManager(context).orientation)
-//            addItemDecoration(divider)
-//        }
         viewModel.noteList.observe(viewLifecycleOwner) {
             Log.d(TAG, "onViewCreated: note list $it")
-            noteListViewAdapter = NoteListViewAdapter(it)
+            noteListViewAdapter = NoteListViewAdapter(it) { noteId ->
+                Log.d(TAG, "onViewCreated: item clicked $noteId")
+                val directions =
+                    MainFragmentDirections.actionMainFragmentToEditorFragment(
+                        noteId = noteId
+                    )
+                findNavController().navigate(directions)
+            }
             Log.d(TAG, "onViewCreated: note view adapte size ${noteListViewAdapter.itemCount}")
 
             this.recyclerView.layoutManager = LinearLayoutManager(activity)
             this.recyclerView.adapter = noteListViewAdapter
-            noteListViewAdapter.notifyDataSetChanged()
         }
-        noteListViewAdapter = NoteListViewAdapter(SampleDataProvider.getNotes())
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = noteListViewAdapter
-
     }
-
-
 }
