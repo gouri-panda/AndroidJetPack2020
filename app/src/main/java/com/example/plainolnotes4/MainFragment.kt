@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.noteList.observe(viewLifecycleOwner) {
+        viewModel.noteList?.observe(viewLifecycleOwner) {
             Log.d(TAG, "onViewCreated: note list $it")
             noteListViewAdapter = NoteListViewAdapter(it) { noteId ->
                 Log.d(TAG, "onViewCreated: item clicked $noteId")
@@ -55,7 +55,10 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_sample_note -> goToEditFragement()
+            R.id.action_sample_note -> {
+                viewModel.addSampleData()
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
