@@ -69,8 +69,10 @@ class MainFragment : Fragment() {
     }
 
     private fun deleteSelectNotes(): Boolean {
-        viewModel.deleteSelectNotes(noteListViewAdapter.selectedNotes)
-        activity?.invalidateOptionsMenu()
+        viewModel.deleteSelectNotes(noteListViewAdapter.selectedNotes) {
+            noteListViewAdapter.selectedNotes.clear()
+            activity?.invalidateOptionsMenu()
+        }
         return true
 
     }

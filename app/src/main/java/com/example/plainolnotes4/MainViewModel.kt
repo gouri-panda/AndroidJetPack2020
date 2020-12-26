@@ -23,12 +23,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteSelectNotes(noteEntitys: List<NoteEntity>): Boolean {
+    fun deleteSelectNotes(noteEntitys: List<NoteEntity>, onComplete: () -> Unit): Boolean {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 noteEntitys.forEach {
                     database?.noteDao()?.deleteNOte(it)
                 }
+                onComplete()
                 return@withContext true
             }
         }
