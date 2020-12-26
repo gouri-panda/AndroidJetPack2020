@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface NoteDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNote(noteEntity: NoteEntity)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -22,4 +22,7 @@ interface NoteDao {
 
     @Query("SELECT COUNT(*) FROM notes")
     fun getRowCounts(): Int
+
+    @Query("SELECT * FROM notes WHERE isSelected = 1")
+    fun getSelectedNotes(): LiveData<MutableList<NoteEntity>>?
 }

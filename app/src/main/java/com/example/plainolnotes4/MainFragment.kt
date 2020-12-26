@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.plainolnotes4.data.NoteEntity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.main_fragment.*
 
 const val TAG = "MainFragment"
@@ -33,23 +35,25 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.noteList?.observe(viewLifecycleOwner) {
             Log.d(TAG, "onViewCreated: note list $it")
-            noteListViewAdapter = NoteListViewAdapter(it) { noteId ->
-                Log.d(TAG, "onViewCreated: item clicked $noteId")
-                val directions =
-                    MainFragmentDirections.actionMainFragmentToEditorFragment(
-                        noteId = noteId
-                    )
-                findNavController().navigate(directions)
-            }
-            Log.d(TAG, "onViewCreated: note view adapte size ${noteListViewAdapter.itemCount}")
+            noteListViewAdapter = NoteListViewAdapter(
+                it,
+                { note -> onClick(note) },
+                { activity?.invalidateOptionsMenu() }
+            )
+            Log.d(TAG, "onViewCreated: note view adapter size ${noteListViewAdapter.itemCount}")
 
             this.recyclerView.layoutManager = LinearLayoutManager(activity)
             this.recyclerView.adapter = noteListViewAdapter
         }
+
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
+        val menuId =
+            if (this::noteListViewAdapter.isInitialized && noteListViewAdapter.selectedNotes.isNotEmpty())
+                R.menu.menu_main_selected else R.menu.menu_main
+        inflater.inflate(menuId, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -59,13 +63,31 @@ class MainFragment : Fragment() {
                 viewModel.addSampleData()
                 return true
             }
+            R.id.action_sample_note_delete -> deleteSelectNotes()
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun goToEditFragement(): Boolean {
+    private fun deleteSelectNotes(): Boolean {
+        viewModel.deleteSelectNotes(noteListViewAdapter.selectedNotes)
+        activity?.invalidateOptionsMenu()
+        return true
+
+    }
+
+    private fun goToEditFragment(): Boolean {
         findNavController().navigate(R.id.action_mainFragment_to_editorFragment)
         return true
     }
+
+    private fun onClick(note: NoteEntity) {
+        Log.d(TAG, "onViewCreated: item clicked $note.id")
+        val directions =
+            MainFragmentDirections.actionMainFragmentToEditorFragment(
+                noteId = note.id
+            )
+        findNavController().navigate(directions)
+    }
+
 
 }
