@@ -16,22 +16,6 @@ const val TAG = "MainFragment"
 class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_sample_note -> goToEditFragement()
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun goToEditFragement(): Boolean {
-        findNavController().navigate(R.id.action_mainFragment_to_editorFragment)
-        return true
-    }
 
     private lateinit var noteListViewAdapter: NoteListViewAdapter
 
@@ -63,4 +47,22 @@ class MainFragment : Fragment() {
             this.recyclerView.adapter = noteListViewAdapter
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_sample_note -> goToEditFragement()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun goToEditFragement(): Boolean {
+        findNavController().navigate(R.id.action_mainFragment_to_editorFragment)
+        return true
+    }
+
 }
