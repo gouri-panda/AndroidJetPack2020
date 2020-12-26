@@ -3,10 +3,8 @@ package com.example.plainolnotes4
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -18,6 +16,23 @@ const val TAG = "MainFragment"
 class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_sample_note -> goToEditFragement()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun goToEditFragement(): Boolean {
+        findNavController().navigate(R.id.action_mainFragment_to_editorFragment)
+        return true
+    }
+
     private lateinit var noteListViewAdapter: NoteListViewAdapter
 
     override fun onCreateView(
@@ -25,6 +40,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
