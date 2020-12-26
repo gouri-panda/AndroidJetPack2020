@@ -10,7 +10,7 @@ data class NoteEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val date: Date,
-    val text: String,
+    var text: String,
     var isSelected: Boolean = false
 ) {
     constructor() : this(NEW_NOTE_ID, Date(), "")
