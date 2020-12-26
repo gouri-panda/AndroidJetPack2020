@@ -69,9 +69,23 @@ class EditorFragment : Fragment() {
 
     private fun saveAndClose(): Boolean {
         hidekeyBoard()
-        viewModel.currentNote.value?.text = edit_text?.text.toString()
-        viewModel.saveNote()
+        saveNoteToDatabase()
         return findNavController().navigateUp()
+    }
+
+    private fun saveNoteTextToLiveData() {
+        viewModel.currentNote.value?.text = edit_text?.text.toString()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        saveNoteToDatabase()
+        super.onSaveInstanceState(outState)
+
+    }
+
+    private fun saveNoteToDatabase() {
+        saveNoteTextToLiveData()
+        viewModel.saveNote()
     }
 
     private fun hidekeyBoard() {
