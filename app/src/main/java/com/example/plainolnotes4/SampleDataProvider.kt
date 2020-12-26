@@ -5,8 +5,8 @@ import java.util.*
 
 class SampleDataProvider {
     companion object {
-        private val text1 = "simple text"
-        private val text2 = "text 2 with \n lines "
+        private const val text1 = "simple text"
+        private const val text2 = "text 2 with \n lines "
         private val text3 = """
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pellentesque vehicula orci quis cursus. Vivamus nulla elit, eleifend nec sagittis sed, eleifend vitae lorem. Duis sodales dui sit amet vestibulum dignissim. Praesent commodo, ex eu feugiat cursus, lorem tortor facilisis tortor, vitae vestibulum turpis dolor eu ipsum. Donec egestas turpis a interdum aliquet. Cras efficitur lorem non lorem semper mattis. Integer interdum risus libero, interdum mattis dui ornare eu. Sed accumsan eget felis sit amet ornare. Aliquam vel ex lorem. Integer ante nibh, hendrerit ac lectus ac, molestie viverra erat. Donec pharetra vulputate orci, ut sagittis nisl efficitur et. Aliquam leo tortor, cursus a commodo non, volutpat eu felis. Morbi eu mauris arcu. Curabitur elit metus, commodo at tellus vel, porttitor porttitor diam. Pellentesque vitae pellentesque velit. Phasellus venenatis, urna eu commodo suscipit, dui nunc lacinia purus, eleifend pulvinar orci elit in ante.
 
