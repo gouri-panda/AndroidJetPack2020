@@ -43,6 +43,7 @@ class EditorFragment : Fragment() {
             setHomeButtonEnabled(true)
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
+            title = if (args.noteId == NEW_NOTE_ID) "Create New Note" else "Edit Note"
             setHomeAsUpIndicator(R.drawable.ic_check)
         }
         setHasOptionsMenu(true)
