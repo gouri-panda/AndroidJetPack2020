@@ -36,13 +36,16 @@ class MainFragment : Fragment() {
             Log.d(TAG, "onViewCreated: note list $it")
             noteListViewAdapter = NoteListViewAdapter(
                 it,
-                { note -> onClick(note) },
+                { note -> onClick(note.id) },
                 { activity?.invalidateOptionsMenu() }
             )
             Log.d(TAG, "onViewCreated: note view adapter size ${noteListViewAdapter.itemCount}")
 
             this.recyclerView.layoutManager = LinearLayoutManager(activity)
             this.recyclerView.adapter = noteListViewAdapter
+        }
+        newNoteFloatingActionButton.setOnClickListener {
+            onClick(NEW_NOTE_ID)
         }
 
     }
@@ -81,11 +84,11 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun onClick(note: NoteEntity) {
-        Log.d(TAG, "onViewCreated: item clicked $note.id")
+    private fun onClick(noteId: Int) {
+        Log.d(TAG, "onViewCreated: item clicked $noteId")
         val directions =
             MainFragmentDirections.actionMainFragmentToEditorFragment(
-                noteId = note.id
+                noteId = noteId
             )
         findNavController().navigate(directions)
     }
