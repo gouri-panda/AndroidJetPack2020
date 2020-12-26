@@ -3,4 +3,5 @@
     <string name="notes">Notes</string>
     <string name="hello">Hello</string>
     <string name="add_note">Add Note</string>
+    <string name="delete_note">Delete Note</string>
 </resources>
