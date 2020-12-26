@@ -25,6 +25,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity?.title = getString(R.string.app_name)
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
