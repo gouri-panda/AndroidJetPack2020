@@ -7,4 +7,7 @@
         android:icon="@drawable/ic_add"
         android:title="@string/add_note"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/delete_all_notes_from_menu"
+        android:title="@string/delete_all" />
 </menu>

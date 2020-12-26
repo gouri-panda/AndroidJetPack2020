@@ -38,4 +38,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+
+    fun deleteAllNotes(): Boolean {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                noteList?.value?.let {
+                    database?.noteDao()?.deleteAllNotesByQuery()
+                }
+                return@withContext true
+            }
+        }
+        return false
+    }
 }

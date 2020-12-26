@@ -17,6 +17,9 @@ interface NoteDao {
     @Delete
     fun deleteNotes(noteEntities: List<NoteEntity>)
 
+    @Query("DELETE FROM notes")
+    fun deleteAllNotesByQuery()
+
     @Query("SELECT * FROM notes ORDER BY date ASC")
     fun getAllNote(): LiveData<List<NoteEntity>>
 

@@ -63,8 +63,13 @@ class MainFragment : Fragment() {
                 return true
             }
             R.id.action_sample_note_delete -> deleteSelectNotes()
+            R.id.delete_all_notes_from_menu -> deleteAllNotes()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun deleteAllNotes(): Boolean {
+        return viewModel.deleteAllNotes()
     }
 
     private fun deleteSelectNotes(): Boolean {
@@ -74,11 +79,6 @@ class MainFragment : Fragment() {
         }
         return true
 
-    }
-
-    private fun goToEditFragment(): Boolean {
-        findNavController().navigate(R.id.action_mainFragment_to_editorFragment)
-        return true
     }
 
     private fun onClick(note: NoteEntity) {
