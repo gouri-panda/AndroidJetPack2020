@@ -11,6 +11,9 @@ interface NoteDao {
     @Insert
     fun insertNote(noteEntity: NoteEntity)
 
+    @Insert
+    fun insertAll(noteEntities: List<NoteEntity>)
+
     @Delete
     fun deleteNOte(noteEntity: NoteEntity)
 
@@ -19,4 +22,7 @@ interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE id = :id")
     fun getAllByNotes(id: Int): NoteEntity?
+
+    @Query("SELECT COUNT(*) FROM notes")
+    fun getRowCounts(): Int
 }
