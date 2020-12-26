@@ -5,6 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.plainolnotes4.data.AppDatabase
 import com.example.plainolnotes4.data.NoteDao
+import com.example.plainolnotes4.data.NoteEntity
 import org.junit.After
 
 import org.junit.Test
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 import org.junit.Before
+import java.util.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -42,5 +44,13 @@ class DatabaseTest {
         noteDao.insertAll(SampleDataProvider.getNotes())
         val rowCount = database.noteDao()?.getRowCounts()
         assertEquals(3, rowCount)
+    }
+
+    @Test
+    fun createANote() {
+        noteDao.insertNote(NoteEntity(date = Date(), text = "a note"))
+        val note = noteDao.getAllByNotes(1)
+        val text = note?.text
+        assertEquals(text, "a note")
     }
 }
