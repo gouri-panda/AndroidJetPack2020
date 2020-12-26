@@ -15,9 +15,9 @@ class SampleDataProvider {
 
         private fun getDates(diff: Long): Date = Date(Date().time + diff)
         fun getNotes() = arrayListOf(
-            NoteEntity(getDates(0), text1, false),
-            NoteEntity(getDates(1), text2, false),
-            NoteEntity(getDates(2), text3, false)
+            NoteEntity(getDates(0), text1),
+            NoteEntity(getDates(1), text2),
+            NoteEntity(getDates(2), text3)
         )
     }
 }

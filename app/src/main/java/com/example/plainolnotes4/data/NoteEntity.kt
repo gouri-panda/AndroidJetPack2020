@@ -13,11 +13,6 @@ data class NoteEntity(
     val text: String,
     var isSelected: Boolean = false
 ) {
-    constructor() : this(NEW_NOTE_ID, Date(), "", false)
-    constructor(date: Date, text: String, isSelected: Boolean) : this(
-        NEW_NOTE_ID,
-        date,
-        text,
-        isSelected
-    )
+    constructor() : this(NEW_NOTE_ID, Date(), "")
+    constructor(date: Date, text: String) : this(NEW_NOTE_ID, date, text)
 }
