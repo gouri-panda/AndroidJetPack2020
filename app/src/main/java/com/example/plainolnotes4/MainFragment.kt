@@ -98,7 +98,9 @@ class MainFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        viewModel.selectNoteList.value = noteListViewAdapter.selectedNotes
+        if (this::viewModel.isInitialized) {
+            viewModel.selectNoteList.value = noteListViewAdapter.selectedNotes
+        }
         super.onSaveInstanceState(outState)
     }
 
