@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.plainolnotes4.data.NoteEntity
 import kotlinx.android.synthetic.main.main_fragment.*
 
 const val TAG = "MainFragment"
