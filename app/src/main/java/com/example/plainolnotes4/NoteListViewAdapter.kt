@@ -14,7 +14,7 @@ open class NoteListViewAdapter(
     val onLongClick: () -> Unit
 ) :
     RecyclerView.Adapter<NoteListViewAdapter.ViewHolder>() {
-    val selectedNotes = mutableListOf<NoteEntity>()
+    var selectedNotes = mutableListOf<NoteEntity>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         return ViewHolder(view)

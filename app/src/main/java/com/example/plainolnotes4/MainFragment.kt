@@ -39,10 +39,14 @@ class MainFragment : Fragment() {
                 { note -> onClick(note.id) },
                 { activity?.invalidateOptionsMenu() }
             )
+
             Log.d(TAG, "onViewCreated: note view adapter size ${noteListViewAdapter.itemCount}")
 
             this.recyclerView.layoutManager = LinearLayoutManager(activity)
             this.recyclerView.adapter = noteListViewAdapter
+            noteListViewAdapter.selectedNotes =
+                viewModel.selectNoteList.value ?: mutableListOf()
+            noteListViewAdapter.notifyDataSetChanged()
         }
         newNoteFloatingActionButton.setOnClickListener {
             onClick(NEW_NOTE_ID)
@@ -91,6 +95,11 @@ class MainFragment : Fragment() {
                 noteId = noteId
             )
         findNavController().navigate(directions)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        viewModel.selectNoteList.value = noteListViewAdapter.selectedNotes
+        super.onSaveInstanceState(outState)
     }
 
 

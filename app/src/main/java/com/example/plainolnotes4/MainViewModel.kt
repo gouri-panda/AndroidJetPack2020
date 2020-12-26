@@ -1,7 +1,9 @@
 package com.example.plainolnotes4
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.plainolnotes4.data.AppDatabase
 import com.example.plainolnotes4.data.NoteEntity
@@ -12,6 +14,7 @@ import kotlinx.coroutines.withContext
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     val database = AppDatabase.getInstance(application)
     val noteList = database?.noteDao()?.getAllNote()
+    val selectNoteList = MutableLiveData<MutableList<NoteEntity>>()
     fun addSampleData() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -29,14 +32,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         return false
-    }
-
-    fun updateNote(noteEntity: NoteEntity) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                database?.noteDao()?.insertNote(noteEntity)
-            }
-        }
     }
 
     fun deleteAllNotes(): Boolean {
