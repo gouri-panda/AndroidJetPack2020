@@ -3,12 +3,15 @@ package com.example.plainolnotes4
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Fade
+import androidx.transition.TransitionSet
 import kotlinx.android.synthetic.main.main_fragment.*
 
 const val TAG = "MainFragment"
@@ -95,6 +98,17 @@ class MainFragment : Fragment() {
                 noteId = noteId
             )
         findNavController().navigate(directions)
+    }
+
+    private fun getTransition(): TransitionSet {
+        return TransitionSet().apply {
+            addTransition(
+                Fade().apply {
+                    interpolator = LinearInterpolator()
+                    duration = 2000 / 2
+                }
+            )
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

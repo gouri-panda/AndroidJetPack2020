@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
-    val database = AppDatabase.getInstance(application)
-    val noteList = database?.noteDao()?.getAllNote()
+    private val database = AppDatabase.getInstance(application)
+    val noteList = this.database?.noteDao()?.getAllNote()
     val selectNoteList = MutableLiveData<MutableList<NoteEntity>>()
     fun addSampleData() {
         viewModelScope.launch {
