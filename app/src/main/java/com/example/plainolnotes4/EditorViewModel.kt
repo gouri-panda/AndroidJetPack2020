@@ -36,6 +36,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
                 }
 
             } else {
+                //If user lives it blanks then we'll delete it
                 if (it.text.isEmpty()) {
                     viewModelScope.launch {
                         withContext(Dispatchers.IO) {

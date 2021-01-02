@@ -12,6 +12,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/constant-module" />
+            <option value="$PROJECT_DIR$/plian-o-notes-module" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

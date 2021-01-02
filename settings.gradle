@@ -1,2 +1,4 @@
+include ':plian-o-notes-module'
+include ':constant-module'
 include ':app'
 rootProject.name = "Plain Ol' Notes 4"
